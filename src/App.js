@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {Header} from "./Header";
 import {Player} from "./Player";
+import {AddPlayerForm} from "./AddPlayerForm";
 
 class App extends React.Component {
   state = {
@@ -15,7 +16,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="scoreboard">
-        <Header title="My Scoreboard" totalPlayers={11} />
+        <Header title="My Scoreboard" players={this.state.players} />
 
         {
           this.state.players.map((player) => {
@@ -27,6 +28,8 @@ class App extends React.Component {
             )
           })
         }
+
+        <AddPlayerForm></AddPlayerForm>
       </div>
     );
   }
