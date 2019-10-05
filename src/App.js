@@ -5,6 +5,7 @@ import {Player} from "./Player";
 import {AddPlayerForm} from "./AddPlayerForm";
 
 class App extends React.Component {
+	maxId=4;//class 속성, 접근할시 this. 붙일것
   state = {
     players: [
       {name: 'LDK', score: 30, id: 1},
@@ -12,7 +13,7 @@ class App extends React.Component {
       {name: 'KIM', score: 50, id: 3},
       {name: 'PARK', score: 60, id: 4}
     ]
-  }
+  } //class 속성
   render() {
     return (
       <div className="scoreboard">
@@ -24,12 +25,12 @@ class App extends React.Component {
               <Player name={player.name} score={player.score} id={player.id} key={player.id}
                 // 2. props로 콜백 펑션을 전달
                       removePlayer={this.handleRemovePlayer}
-                      changeScore={this.handleChangeScore} />
+                      changeScore={this.handleChangeScore}/>
             )
           })
         }
 
-        <AddPlayerForm></AddPlayerForm>
+        <AddPlayerForm addPlayer={this.handleAddPlayer}></AddPlayerForm>
       </div>
     );
   }
@@ -53,6 +54,23 @@ class App extends React.Component {
       }
     })
   }
+
+  handleAddPlayer=(name)=>{
+  	console.log('handleAddPlayer',name);
+  	this.setState(prevState=>{
+  		/*prevState.players.push({name:name,id:++this.maxId,score:0});
+  		return{
+  			players:[...prevState.players]//새로운 바구니에 옮겨담기
+			}*/
+
+  		const players=[...prevState.players];//원본배열 훼손 x
+			players.push({/*name:name*/name,id:++this.maxId,score:0});
+			return{
+				//players:players
+				players
+			}
+		});
+	}
 }
 
 export default App;
